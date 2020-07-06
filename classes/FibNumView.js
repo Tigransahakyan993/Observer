@@ -21,7 +21,6 @@ export class FibNumView extends BaseView{
     }
 
     create() {
-        debugger;
         super.create();
         this.getFibNum(this.data);
         this.fibNumsDiv = document.createElement('div');

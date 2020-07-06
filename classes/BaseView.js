@@ -5,6 +5,7 @@ export class BaseView {
     }
 
     render() {
+        debugger;
         if (!this.isExist) {
             this.create();
             this.isExist = true;
