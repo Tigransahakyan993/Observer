@@ -5,10 +5,11 @@ import {SumView} from "./classes/SumView.js";
 import {MultipleView} from "./classes/MultipleView.js";
 import {FactNumView} from "./classes/FactNumView.js";
 import {FibNumView} from "./classes/FibNumView.js";
-
+const observers = [];
 
 function main() {
     net.start()
+    net.notyfy([Math.floor(Math.random()*99 + 1),Math.floor(Math.random()*99 + 1),Math.floor(Math.random()*99 + 1)])
     // net.end()
     // setTimeout(() => net.end(), 3000)
     document.addEventListener('click', () => net.end())
@@ -16,17 +17,23 @@ function main() {
 
 class Network{
 
-constructor() {
-    this.observers = [];
-}
-
-    addObserver(obs) {
-        this.observers.push(...obs)
+    constructor() {
+        this.observers = [];
     }
 
+    addObservers(fn) {
+        this.observers.push(fn)
+    }
+
+    notyfy(msg) {
+        debugger;
+        this.observers.forEach((obs) => {
+            obs(msg)
+        })
+    }
 
     onData() {
-       onDrawNumbers.call(this, Math.floor(Math.random()*99 + 1),Math.floor(Math.random()*99 + 1),Math.floor(Math.random()*99 + 1))
+            onDrawNumbers([Math.floor(Math.random()*99 + 1),Math.floor(Math.random()*99 + 1),Math.floor(Math.random()*99 + 1)])
     }
 
     start() {
@@ -41,23 +48,23 @@ constructor() {
 }
 
 const net = new Network();
+net.addObservers(onDrawNumbers)
 
-net.addObserver(addView(new BaseView(), 1))
-net.addObserver(addView(new SumView(), 10))
-net.addObserver(addView(new MultipleView(), 10))
-net.addObserver(addView(new FactNumView(), 10))
-net.addObserver(addView(new FibNumView(), 1))
 
-function onDrawNumbers() {
-    this.observers.forEach((obs) => {
-        obs.setData(this.onData(arguments))
-    })
+observers.push(...addView(BaseView, 1))
+observers.push(...addView( SumView, 1))
+observers.push(...addView(MultipleView, 1))
+observers.push(...addView(FactNumView, 1))
+observers.push(...addView(FibNumView, 1))
+
+function onDrawNumbers(data) {
+    observers.forEach((obs) => obs.setData(data))
 }
 
 function addView(view,num = 1) {
     const baseView = [];
     for (let i = 0; i < num; i++) {
-        baseView.push(view)
+        baseView.push(new view())
     }
     return baseView
 }

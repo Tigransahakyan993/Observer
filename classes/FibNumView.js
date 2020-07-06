@@ -34,6 +34,7 @@ export class FibNumView extends BaseView{
     }
 
     update() {
+        debugger;
         super.update();
         this.getFibNum(this.data);
         let i = 0;
