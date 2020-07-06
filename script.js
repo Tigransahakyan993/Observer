@@ -26,7 +26,6 @@ class Network{
     }
 
     notyfy(msg) {
-        debugger;
         this.observers.forEach((obs) => {
             obs(msg)
         })
