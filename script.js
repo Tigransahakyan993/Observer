@@ -54,8 +54,7 @@ function onDrawNumbers() {
     })
 }
 
-function addView(view,num) {
-    num = !num ? 1 : num;
+function addView(view,num = 1) {
     const baseView = [];
     for (let i = 0; i < num; i++) {
         baseView.push(view)
