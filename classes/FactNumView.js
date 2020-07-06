@@ -20,7 +20,7 @@ export class FactNumView extends BaseView {
         this.factNumsDiv = document.createElement('div');
         for(let i in this.data) {
             const factP = document.createElement('p');
-            factP.innerText = `fact ${this.data[+i]} = ${this.factArr[+i]}`
+            factP.innerText = `fact ${this.data[+i]} : ${this.factArr[+i]}`
             this.factNumsDiv.appendChild(factP);
         }
         this.div.appendChild(this.factNumsDiv);
@@ -31,7 +31,7 @@ export class FactNumView extends BaseView {
         this.getFact(this.data)
         let i = 0;
         for(let el of this.factNumsDiv.children) {
-            el.innerText = `fact ${this.data[i]} = ${this.factArr[i++]}`
+            el.innerText = `fact ${this.data[i]} : ${this.factArr[i++]}`
         }
     }
 }
