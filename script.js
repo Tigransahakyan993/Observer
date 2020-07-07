@@ -22,7 +22,7 @@ class Network{
     }
 
     addObservers(obs) {
-        this.observers.push(obs)
+        Array.isArray(obs) ? this.observers.push(...obs) : this.observers.push(obs)
     }
 
     notify(msg) {
@@ -33,7 +33,7 @@ class Network{
 
     start() {
         this.timerId = setInterval(()=> {
-            this.notify([Math.floor(Math.random()*99 + 1),Math.floor(Math.random()*99 + 1),Math.floor(Math.random()*99 + 1)])
+            this.notify([Math.floor(Math.random()*99 + 1),Math.floor(Math.random()*99 + 1),Math.floor(Math.random()*99 + 1),Math.floor(Math.random()*99 + 1)])
         }, 1000)
     }
 
@@ -44,11 +44,11 @@ class Network{
 
 const net = new Network();
 
-net.addObservers(...addView(BaseView, 1));
-net.addObservers(...addView( SumView, 1));
-net.addObservers(...addView(MultipleView, 1));
-net.addObservers(...addView(FactNumView, 1));
-net.addObservers(...addView(FibNumView, 1))
+net.addObservers(addView(BaseView, 2));
+net.addObservers(addView( SumView, ));
+net.addObservers(addView(MultipleView, 3));
+net.addObservers(addView(FactNumView, ));
+net.addObservers(addView(FibNumView, ))
 
 function addView(view,num = 1) {
     const baseView = [];
