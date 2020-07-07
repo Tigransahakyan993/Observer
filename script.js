@@ -9,7 +9,7 @@ const observers = [];
 
 function main() {
     net.start()
-    net.notyfy([Math.floor(Math.random()*99 + 1),Math.floor(Math.random()*99 + 1),Math.floor(Math.random()*99 + 1)])
+    // net.notify([Math.floor(Math.random()*99 + 1),Math.floor(Math.random()*99 + 1),Math.floor(Math.random()*99 + 1)])
     // net.end()
     // setTimeout(() => net.end(), 3000)
     document.addEventListener('click', () => net.end())
@@ -25,19 +25,19 @@ class Network{
         this.observers.push(fn)
     }
 
-    notyfy(msg) {
+    notify() {
         this.observers.forEach((obs) => {
-            obs(msg)
+            obs(...arguments)
         })
     }
-
     onData() {
             onDrawNumbers([Math.floor(Math.random()*99 + 1),Math.floor(Math.random()*99 + 1),Math.floor(Math.random()*99 + 1)])
     }
 
     start() {
         this.timerId = setInterval(()=> {
-            this.onData()
+            // this.onData()
+            this.notify(Math.floor(Math.random()*99 + 1),Math.floor(Math.random()*99 + 1),Math.floor(Math.random()*99 + 1))
         }, 1000)
     }
 
@@ -56,8 +56,8 @@ observers.push(...addView(MultipleView, 1))
 observers.push(...addView(FactNumView, 1))
 observers.push(...addView(FibNumView, 1))
 
-function onDrawNumbers(data) {
-    observers.forEach((obs) => obs.setData(data))
+function onDrawNumbers() {
+    observers.forEach((obs) => obs.setData(arguments))
 }
 
 function addView(view,num = 1) {
@@ -67,4 +67,5 @@ function addView(view,num = 1) {
     }
     return baseView
 }
+
 

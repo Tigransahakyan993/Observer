@@ -2,6 +2,7 @@ export class BaseView {
 
     constructor() {
         this.isExist = false;
+        this.observer = [];
     }
 
     render() {
@@ -11,6 +12,20 @@ export class BaseView {
         } else {
             this.update();
         }
+    }
+
+    subscribe(obs) {
+        this.observer.push(obs)
+    }
+
+    unSubscribe(obs) {
+       let findIndex =  this.observer.indexOf(obs);
+
+       this.observer.splice(findIndex,1)
+    }
+
+    notify(msg) {
+        this.observer.forEach((obs) => obs.notify(msg));
     }
 
     create(){
