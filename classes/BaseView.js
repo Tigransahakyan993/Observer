@@ -2,6 +2,10 @@ export class BaseView {
 
     constructor() {
         this.isExist = false;
+        this.render.bind(this)
+        this.create.bind(this)
+        this.update.bind(this)
+        this.setData.bind(this,arguments)
     }
 
     render() {

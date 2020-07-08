@@ -8,10 +8,25 @@ import {FibNumView} from "./classes/FibNumView.js";
 
 function main() {
     let isRun = true;
-    net.start()
+
+    const net = new Network();
+    const base = new BaseView();
+    const sum = new SumView();
+    const mult = new MultipleView();
+    const fact = new FactNumView();
+    const fib = new FibNumView();
+
+    net.addObservers('base',(data) => base.setData(data));
+    net.addObservers('sum', (data) => sum.setData(data));
+    net.addObservers('mult', (data) => mult.setData(data));
+    net.addObservers('fact', (data) => fact.setData(data));
+    net.addObservers('fib', (data) => fib.setData(data))
+
+    net.start(['base','fib', 'fact']);
+
     document.addEventListener('click', () =>{
-            isRun ? net.end() : net.start()
-            isRun = !isRun;
+        isRun ? net.end() : net.start()
+        isRun = !isRun;
     })
 }
 
@@ -21,19 +36,31 @@ class Network{
         this.observers = [];
     }
 
-    addObservers(obs) {
-        Array.isArray(obs) ? this.observers.push(...obs) : this.observers.push(obs)
+    addObservers(type,obs) {
+        obs.type = type;
+        this.observers.push(obs)
     }
 
-    notify(msg) {
+    notify(msg,type = '') {
         this.observers.forEach((obs) => {
-            obs.setData(msg);
+            if (typeof type === "object") {
+                for(let el of type) {
+                    obs.type === el ? obs(msg) : null;
+                }
+            } else {
+                if (type) {
+                    obs.type === type ? obs(msg) : null
+                } else {
+                    obs(msg)
+                }
+            }
+
         })
     }
 
-    start() {
+    start(type) {
         this.timerId = setInterval(()=> {
-            this.notify([Math.floor(Math.random()*99 + 1),Math.floor(Math.random()*99 + 1),Math.floor(Math.random()*99 + 1),Math.floor(Math.random()*99 + 1)])
+            this.notify([Math.floor(Math.random()*99 + 1),Math.floor(Math.random()*99 + 1),Math.floor(Math.random()*99 + 1)],type)
         }, 1000)
     }
 
@@ -42,20 +69,10 @@ class Network{
     }
 }
 
-const net = new Network();
-
-net.addObservers(addView(BaseView, 2));
-net.addObservers(addView( SumView, ));
-net.addObservers(addView(MultipleView, 3));
-net.addObservers(addView(FactNumView, ));
-net.addObservers(addView(FibNumView, ))
-
 function addView(view,num = 1) {
     const baseView = [];
     for (let i = 0; i < num; i++) {
-        baseView.push(new view())
+        baseView.push(view)
     }
     return baseView
 }
-
-
