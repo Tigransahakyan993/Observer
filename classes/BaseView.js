@@ -5,7 +5,7 @@ export class BaseView {
         this.render.bind(this)
         this.create.bind(this)
         this.update.bind(this)
-        this.setData.bind(this,arguments)
+        this.setData.bind(this)
     }
 
     render() {
