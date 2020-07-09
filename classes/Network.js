@@ -3,6 +3,7 @@
     constructor() {
         this.observers = [];
         this.start = this.start.bind(this)
+        this.removeObserver = this.removeObserver.bind(this)
     }
 
     addObservers(type, func) {
@@ -13,7 +14,7 @@
         let index;
         for(let obs of this.observers) {
             if((obs.type === type && obs.func === func)){
-                index = this.observers.findIndex(obs);
+                index = this.observers.indexOf(obs);
                 break;
             }
         }
@@ -32,7 +33,7 @@
 
     start(type) {
         this.timerId = setInterval(()=> {
-            this.notify([Math.floor(Math.random()*99 + 1),Math.floor(Math.random()*99 + 1),Math.floor(Math.random()*99 + 1)],type)
+            this.notify([Math.floor(Math.random() * 99 + 1),Math.floor(Math.random() * 99 + 1),Math.floor(Math.random() * 99 + 1)],type)
         }, 1000)
     }
 

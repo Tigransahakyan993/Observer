@@ -9,7 +9,6 @@ import {FibNumView} from "./classes/FibNumView.js";
 
 const startBtn = document.getElementById('startBtn');
 const endBtn = document.getElementById('endBtn');
-
 function main() {
 
     startBtn.addEventListener('click',startNetwork)
@@ -21,21 +20,23 @@ function main() {
     const fibBtn = document.getElementById('fibId');
 
     baseBtn.addEventListener("click",() => {
-       subscribe(Network, 'base', BaseView)
+       subscribe('base', BaseView)
     })
     sumBtn.addEventListener("click",() => {
-        subscribe(Network, 'sum', SumView)
+        subscribe('sum', SumView)
     })
     multBtn.addEventListener("click",() => {
-        subscribe(Network, 'mult', MultipleView)
+        subscribe('mult', MultipleView)
     })
     factBtn.addEventListener("click",() => {
-        subscribe(Network, 'fact', FactNumView)
+        subscribe('fact', FactNumView)
     })
     fibBtn.addEventListener("click",() => {
-        subscribe(Network, 'fib', FibNumView)
+        subscribe('fib', FibNumView)
     })
 }
+
+
 function startNetwork() {
     Network.start()
     endBtn.addEventListener('click', endNetwork)
@@ -49,8 +50,11 @@ function endNetwork() {
 }
 
 function subscribe(type, view) {
-    const fn = new view().setData;
-    Network.addObservers(type, fn);
+    debugger;
+    const fn = new view();
+    fn.removeObject = {type, func: fn.setData};
+    fn.fn = Network.removeObserver
+    Network.addObservers(type, fn.setData);
     Network.notify([0,0,0],type);
 }
 

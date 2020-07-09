@@ -2,6 +2,9 @@ export class BaseView {
 
     constructor() {
         this.isExist = false;
+        this.button = document.createElement('button');
+        this.removeObject = null;
+        this.fn = null;
         this.setData = this.setData.bind(this);
         this.removeElement = this.removeElement.bind(this);
     }
@@ -13,12 +16,12 @@ export class BaseView {
         } else {
             this.update();
         }
+
     }
 
     create(){
         this.parentDiv = document.createElement('div');
         this.div = document.createElement('div');
-        this.button = document.createElement('button');
         this.button.innerText = 'x';
         this.button.addEventListener('click', this.removeElement);
         this.button.classList.add('closeBtn');
@@ -40,6 +43,7 @@ export class BaseView {
 
     removeElement() {
         this.parentDiv.remove();
+        this.fn(this.removeObject.type, this.removeObject.func)
     }
 
     setData(data) {
