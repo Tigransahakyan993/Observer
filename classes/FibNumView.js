@@ -41,5 +41,4 @@ export class FibNumView extends BaseView{
             el.innerText = `fib ${this.data[i]} : ${this.fibArr[i++]}`
         }
     }
-
 }
