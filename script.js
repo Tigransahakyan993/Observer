@@ -24,10 +24,5 @@ function preview(type, view) {
     const obs = new view();
     obs.removeObject = {type, func: obs.setData};
     Network.addObservers(type, obs.setData);
-    Network.notify([0,0,0]);
+    obs.setData([0,0,0])
 }
-
-
-
-
-
