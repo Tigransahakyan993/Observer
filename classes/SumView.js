@@ -9,7 +9,7 @@ export class SumView extends BaseView {
     getSum(data) {
         this.sum = 0;
         for (let i = 0; i < data.length; i++) {
-            this.sum += data[i]
+            this.sum += data[i];
         }
     }
 

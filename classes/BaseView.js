@@ -1,9 +1,10 @@
+import Network from './Network.js'
+
 export class BaseView {
 
     constructor() {
         this.isExist = false;
         this.removeObject = null;
-        this.fn = null;
         this.setData = this.setData.bind(this);
         this.removeElement = this.removeElement.bind(this);
     }
@@ -15,10 +16,9 @@ export class BaseView {
         } else {
             this.update();
         }
-
     }
 
-    create(){
+    create() {
         this.parentDiv = document.createElement('div');
         this.button = document.createElement('button');
         this.button.innerText = 'x';
@@ -32,8 +32,8 @@ export class BaseView {
             p.innerText = this.data[i];
             this.div.appendChild(p);
         }
-        this.parentDiv.appendChild(this.div)
-        document.getElementById('root').appendChild(this.parentDiv)
+        this.parentDiv.appendChild(this.div);
+        document.getElementById('root').appendChild(this.parentDiv);
     }
 
     update() {
@@ -44,7 +44,7 @@ export class BaseView {
 
     removeElement() {
         this.parentDiv.remove();
-        this.fn(this.removeObject.type, this.removeObject.func)
+        Network.removeObserver(this.removeObject.type, this.removeObject.func)
     }
 
     setData(data) {

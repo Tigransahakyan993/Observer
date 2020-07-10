@@ -1,8 +1,8 @@
 import {BaseView} from "./BaseView.js";
 
-export class FibNumView extends BaseView{
+export class FibNumView extends BaseView {
 
-    getFibNum(data){
+    getFibNum(data) {
         this.fibArr = [];
         for(let k = 0; k < data.length; k++) {
             const fib =[1,1,2];
@@ -24,7 +24,7 @@ export class FibNumView extends BaseView{
         super.create();
         this.getFibNum(this.data);
         this.fibNumsDiv = document.createElement('div');
-        for(let i in this.data) {
+        for (let i in this.data) {
             const p = document.createElement('p');
             p.innerText = `fib ${this.data[+i]} : ${this.fibArr[+i]}`
             this.fibNumsDiv.appendChild(p);
@@ -37,7 +37,7 @@ export class FibNumView extends BaseView{
         super.update();
         this.getFibNum(this.data);
         let i = 0;
-        for(let el of this.fibNumsDiv.children) {
+        for (let el of this.fibNumsDiv.children) {
             el.innerText = `fib ${this.data[i]} : ${this.fibArr[i++]}`
         }
     }
