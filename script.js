@@ -1,28 +1,22 @@
 window.onload = main;
 
-import Network from "./classes/Network.js";
+import network from "./classes/Network.js";
 import {BaseView} from "./classes/BaseView.js";
 import {SumView} from "./classes/SumView.js";
 import {MultipleView} from "./classes/MultipleView.js";
 import {FactNumView} from "./classes/FactNumView.js";
 import {FibNumView} from "./classes/FibNumView.js";
-import eventDispatch from "./classes/EventDispatch.js";
+import {statusView} from "./classes/StatusView.js";
+import {events} from "./classes/startStopEvent.js";
+import {eventDispatch} from "./classes/EventDispatch.js";
 
 function main() {
+    const views = [BaseView, SumView, MultipleView, FactNumView, FibNumView];
 
-const classes = [BaseView, SumView, MultipleView, FactNumView, FibNumView];
-const btns = document.getElementById('dropDownMenu').children;
+    statusView.render();
+    events.create();
 
-    for (let i = 0; i < classes.length; i++) {
-        btns[i].addEventListener('click', () => {
-            preview('date', classes[i])
-        })
+    for (let i = 0; i < views.length; i++) {
+        eventDispatch.addView(network, 'data', views[i])
     }
-}
-
-function preview(type, view) {
-    const obs = new view();
-    obs.removeObject = {type, func: obs.setData};
-    Network.addObservers(type, obs.setData);
-    obs.setData([0,0,0])
 }

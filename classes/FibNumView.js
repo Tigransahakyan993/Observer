@@ -6,7 +6,7 @@ export class FibNumView extends BaseView {
         this.fibArr = [];
         for(let k = 0; k < data.length; k++) {
             const fib =[1,1,2];
-            if (data[k] === 1){
+            if (data[k] === 1) {
                 this.fibArr.push(1);
                 continue;
             }

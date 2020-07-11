@@ -1,4 +1,4 @@
-import Network from './Network.js'
+import network from './Network.js'
 
 export class BaseView {
 
@@ -44,7 +44,7 @@ export class BaseView {
 
     removeElement() {
         this.parentDiv.remove();
-        Network.removeObserver(this.removeObject.type, this.removeObject.func)
+        network.removeObserver(this.removeObject.type, this.removeObject.func)
     }
 
     setData(data) {

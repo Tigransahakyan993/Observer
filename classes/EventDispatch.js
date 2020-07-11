@@ -1,32 +1,32 @@
-import Network from "./Network.js";
-
 class EventDispatch {
 
     constructor() {
-        this.start = this.start.bind(this);
-        this.end = this.end.bind(this);
-        this.startBtn = document.getElementById('startBtn');
-        this.endBtn = document.getElementById('endBtn');
-        this.startBtn.addEventListener('click', this.start);
-        this.endBtn.addEventListener('click', this.end);
-        this.status = document.getElementById('statusId');
+        this.addView = this.addView.bind(this);
+        this.createPreview = this.createPreview.bind(this);
     }
 
-    start() {
-            this.startBtn.disabled = true;
-            this.endBtn.disabled = false;
-            this.status.innerText = 'open'
-            Network.start();
+    createButton() {
+        const btn = document.createElement('button');
+        btn.innerText = this.object.view.name;
+        btn.addEventListener('click', this.createPreview);
+        const container = document.getElementById('dropDownMenu');
+        container.appendChild(btn)
+
     }
 
-    end() {
-        this.startBtn.disabled = false;
-        this.endBtn.disabled = true;
-        this.status.innerText = 'close';
-        Network.end();
+    createPreview() {
+        debugger;
+        const subscriber = new this.object.view ();
+        subscriber.removeObject = {type: this.object.type, func: subscriber.setData};
+        this.subscribe.addObservers(this.object.type, subscriber.setData);
+        subscriber.setData([0,0,0])
+    }
+
+    addView(subscribe ,type, view) {
+        this.object = {type, view};
+        this.subscribe = subscribe;
+        this.createButton();
     }
 }
 
-const btnEvent = new EventDispatch();
-
-export default btnEvent;
+export const eventDispatch = new EventDispatch();
