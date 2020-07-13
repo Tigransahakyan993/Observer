@@ -1,5 +1,3 @@
-import {statusView} from "./StatusView.js";
-
 class startStopEvent {
 
     constructor() {
@@ -26,14 +24,19 @@ class startStopEvent {
     start() {
         this.startBtn.disabled = true;
         this.stopBtn.disabled = false;
-            statusView.setData(true)
+        this.event(true)
     }
 
     stop() {
         this.stopBtn.disabled = true;
         this.startBtn.disabled = false;
-            statusView.setData(false);
+        this.event(false);
+    }
+
+    setData(event) {
+        this.event = event;
+        this.create();
     }
 }
 
-export const events = new startStopEvent();
+export const startStop = new startStopEvent();

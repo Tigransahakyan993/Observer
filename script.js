@@ -7,16 +7,23 @@ import {MultipleView} from "./classes/MultipleView.js";
 import {FactNumView} from "./classes/FactNumView.js";
 import {FibNumView} from "./classes/FibNumView.js";
 import {statusView} from "./classes/StatusView.js";
-import {events} from "./classes/startStopEvent.js";
-import {eventDispatch} from "./classes/EventDispatch.js";
+import {startStop} from "./classes/startStopEvent.js";
 
 function main() {
     const views = [BaseView, SumView, MultipleView, FactNumView, FibNumView];
+    const buttons = document.getElementById('dropDownMenu').children;
 
-    statusView.render();
-    events.create();
+    statusView.setData(false);
+    startStop.setData(statusView.setData);
 
     for (let i = 0; i < views.length; i++) {
-        eventDispatch.addView(network, 'data', views[i])
+        buttons[i].addEventListener('click',() => createPreview(views[i], 'data'))
     }
+}
+
+function createPreview(view,type) {
+    const subscriber = new view();
+        subscriber.removeObject = {type, func: subscriber.setData};
+        network.addObservers(type, subscriber.setData);
+        subscriber.setData([0,0,0])
 }
