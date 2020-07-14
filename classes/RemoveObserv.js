@@ -18,8 +18,4 @@ export class RemoveObserver {
         }
         this.observers.splice(index, 1);
     }
-
-    removeAll() {
-        this.observers = [];
-    }
 }
