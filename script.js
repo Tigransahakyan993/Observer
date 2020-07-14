@@ -23,7 +23,6 @@ function main() {
 
 function createPreview(view,type) {
     const subscriber = new view();
-        subscriber.removeObject = {type, func: subscriber.setData};
         network.addObservers(type, subscriber.setData);
-        subscriber.setData([0,0,0])
+        subscriber.setData([0,0,0]);
 }

@@ -4,7 +4,6 @@ export class BaseView {
 
     constructor() {
         this.isExist = false;
-        this.removeObject = null;
         this.setData = this.setData.bind(this);
         this.removeElement = this.removeElement.bind(this);
     }
@@ -44,7 +43,7 @@ export class BaseView {
 
     removeElement() {
         this.parentDiv.remove();
-        network.removeObserver(this.removeObject.type, this.removeObject.func)
+        network.removeObserver.remove('data', this.setData);
     }
 
     setData(data) {

@@ -1,23 +1,15 @@
- class Network {
+import {RemoveObserver} from "./RemoveObserv.js";
+
+export class Network {
 
     constructor() {
         this.observers = [];
-        this.removeObserver = this.removeObserver.bind(this);
+        this.removeObserver = new RemoveObserver();
     }
 
     addObservers(type, func) {
         this.observers.push({ type, func: func });
-    }
-
-    removeObserver(type, func) {
-        let index;
-        for (let obs of this.observers) {
-            if ((obs.type === type && obs.func === func)) {
-                index = this.observers.indexOf(obs);
-                break;
-            }
-        }
-        this.observers.splice(index, 1);
+        this.removeObserver.addObserver( type, func )
     }
 
     notify(msg, type) {
